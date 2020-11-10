@@ -12,7 +12,7 @@ using Xamarin.Forms;
 
 namespace LostArkMobile.ViewModels
 {
-    public class MainPageViewModel : ViewModelBase
+    public class EventListViewModel : ViewModelBase
     {
         public enum EventType : int
         {
@@ -53,7 +53,7 @@ namespace LostArkMobile.ViewModels
 
         public DelegateCommand RefreshCommand { get; set; }
 
-        public MainPageViewModel(INavigationService navigationService)
+        public EventListViewModel(INavigationService navigationService)
             : base(navigationService)
         {
             Title = "イベント一覧";

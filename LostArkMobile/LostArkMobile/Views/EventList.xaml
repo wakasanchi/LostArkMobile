@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="LostArkMobile.Views.MainPage"
+             x:Class="LostArkMobile.Views.EventList"
              xmlns:ext="clr-namespace:LostArkMobile.Extensions"
              xmlns:controls="clr-namespace:MarcTron.Plugin.Controls;assembly=Plugin.MtAdmob"
              Title="{Binding Title}">

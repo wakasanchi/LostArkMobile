@@ -42,6 +42,12 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Update="Views\EventList.xaml.cs">
+      <DependentUpon>EventList.xaml</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
     <EmbeddedResource Update="Views\MDPRoot.xaml">
       <Generator>MSBuild:Compile</Generator>
     </EmbeddedResource>

@@ -25,7 +25,7 @@ namespace LostArkMobile
         {
             InitializeComponent();
 
-            await NavigationService.NavigateAsync("MDPRoot/NavigationRoot/MainPage");
+            await NavigationService.NavigateAsync("MDPRoot/NavigationRoot/EventList");
         }
 
         protected override void RegisterTypes(IContainerRegistry containerRegistry)
@@ -33,7 +33,7 @@ namespace LostArkMobile
             containerRegistry.RegisterSingleton<IAppInfo, AppInfoImplementation>();
 
             containerRegistry.RegisterForNavigation<NavigationPage>();
-            containerRegistry.RegisterForNavigation<MainPage, MainPageViewModel>();
+            containerRegistry.RegisterForNavigation<EventList, EventListViewModel>();
             containerRegistry.RegisterForNavigation<NavigationRoot, NavigationRootViewModel>();
             containerRegistry.RegisterForNavigation<MDPRoot, MDPRootViewModel>();
         }

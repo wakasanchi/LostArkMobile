@@ -4,9 +4,9 @@ using Xamarin.Forms;
 
 namespace LostArkMobile.Views
 {
-    public partial class MainPage
+    public partial class EventList
     {
-        public MainPage()
+        public EventList()
         {
             InitializeComponent();
         }
