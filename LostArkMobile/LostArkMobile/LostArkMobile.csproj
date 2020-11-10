@@ -1,0 +1,50 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Resources\EventTypeAdventureIsland.png" />
+    <None Remove="Resources\EventTypeChaosGate.png" />
+    <None Remove="Resources\EventTypeFieldBoss.png" />
+    <None Remove="Resources\EventTypeHotTime.png" />
+    <None Remove="Resources\EventTypeIsland_arakeru.png" />
+    <None Remove="Resources\EventTypeIsland_dokey.png" />
+    <None Remove="Resources\EventTypeIsland_jayoku.png" />
+    <None Remove="Resources\EventTypeIsland_nemureru.png" />
+    <None Remove="Resources\EventTypeIsland_singetu.png" />
+    <None Remove="Resources\EventTypeIsland_speeda.png" />
+    <None Remove="Resources\EventTypeVoyage.png" />
+    <None Remove="Resources\UpArrow.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\EventTypeAdventureIsland.png" />
+    <EmbeddedResource Include="Resources\EventTypeChaosGate.png" />
+    <EmbeddedResource Include="Resources\EventTypeFieldBoss.png" />
+    <EmbeddedResource Include="Resources\EventTypeHotTime.png" />
+    <EmbeddedResource Include="Resources\EventTypeIsland_arakeru.png" />
+    <EmbeddedResource Include="Resources\EventTypeIsland_dokey.png" />
+    <EmbeddedResource Include="Resources\EventTypeIsland_jayoku.png" />
+    <EmbeddedResource Include="Resources\EventTypeIsland_nemureru.png" />
+    <EmbeddedResource Include="Resources\EventTypeIsland_singetu.png" />
+    <EmbeddedResource Include="Resources\EventTypeIsland_speeda.png" />
+    <EmbeddedResource Include="Resources\EventTypeVoyage.png" />
+    <EmbeddedResource Include="Resources\UpArrow.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="MarcTron.Admob" Version="1.5.8" />
+    <PackageReference Include="Xamarin.Forms" Version="4.7.0.1239" />
+    <PackageReference Include="Xamarin.Essentials.Interfaces" Version="1.5.3.2" />
+    <PackageReference Include="Prism.Unity.Forms" Version="7.2.0.1422" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Update="Views\MDPRoot.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </EmbeddedResource>
+  </ItemGroup>
+
+</Project>

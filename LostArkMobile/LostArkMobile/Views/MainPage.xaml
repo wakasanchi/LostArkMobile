@@ -1,0 +1,46 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="LostArkMobile.Views.MainPage"
+             xmlns:ext="clr-namespace:LostArkMobile.Extensions"
+             xmlns:controls="clr-namespace:MarcTron.Plugin.Controls;assembly=Plugin.MtAdmob"
+             Title="{Binding Title}">
+
+    <ContentPage.Content>
+        <AbsoluteLayout x:Name="Absolute">
+            <StackLayout AbsoluteLayout.LayoutFlags="All" AbsoluteLayout.LayoutBounds="0,0,1,1">
+                <ListView x:Name="MyListView" ItemsSource="{Binding ItemList}" BackgroundColor="DimGray" HasUnevenRows="True" IsRefreshing="{Binding IsRefresing}" IsPullToRefreshEnabled="True" RefreshCommand="{Binding RefreshCommand}">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <ViewCell>
+                                <Grid BackgroundColor="Black" Margin="2,1,2,1" >
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="0.4*" />
+                                        <RowDefinition Height="0.6*" />
+                                    </Grid.RowDefinitions>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="0.15*" />
+                                        <ColumnDefinition Width="0.7*" />
+                                        <ColumnDefinition Width="0.15*" />
+                                    </Grid.ColumnDefinitions>
+                                    <Image Grid.Row="0" Grid.Column="0" Grid.RowSpan="2" Source="{Binding ImageSource}" Aspect="AspectFit" Margin="1,1,1,1"/>
+                                    <Label Grid.Row="0" Grid.Column="1" Text="{Binding Title}" TextColor="White" VerticalTextAlignment="End"/>
+                                    <Label Grid.Row="1" Grid.Column="1" Text="{Binding SubTitle}" TextColor="Aqua" VerticalTextAlignment="Center"/>
+                                    <Label Grid.Row="1" Grid.Column="2" Text="{Binding TimeString}" TextColor="Yellow" VerticalTextAlignment="Center"/>
+                                </Grid>
+                            </ViewCell>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+            </StackLayout>
+            <StackLayout AbsoluteLayout.LayoutFlags="PositionProportional" AbsoluteLayout.LayoutBounds="0.9,0.9,Autosize,Autosize">
+                <ImageButton Source="{ext:ImageResource LostArkMobile.Resources.UpArrow.png}" Clicked="ImageButton_Clicked"  Opacity="0.8" HeightRequest="40" WidthRequest="40"/>
+            </StackLayout>
+            <StackLayout AbsoluteLayout.LayoutFlags="PositionProportional" AbsoluteLayout.LayoutBounds="0.5,1,320,50" BackgroundColor="Red">
+                <!--<controls:MTAdView x:Name="myAds" WidthRequest="320" HeightRequest="50" VerticalOptions ="FillAndExpand" AdsId="{OnPlatform Android='ca-app-pub-8838207688406048/9378457141'}"/>-->
+                <controls:MTAdView x:Name="myAds" WidthRequest="320" HeightRequest="50" VerticalOptions ="FillAndExpand"/>
+            </StackLayout>
+        </AbsoluteLayout>
+    </ContentPage.Content>
+
+</ContentPage>

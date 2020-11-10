@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<MasterDetailPage xmlns="http://xamarin.com/schemas/2014/forms" 
+                  xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                  xmlns:prism="http://prismlibrary.com"
+                  x:Class="LostArkMobile.Views.MDPRoot">
+
+    <MasterDetailPage.Master>
+        <ContentPage Title="Menu">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="0.2*" />
+                    <RowDefinition Height="0.7*" />
+                    <RowDefinition Height="0.1*" />
+                </Grid.RowDefinitions>
+                <BoxView Color="Navy" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" Grid.Row="0" />
+                <StackLayout Padding="40" Grid.Row="1">
+                    <Button Text="イベント一覧" Command="{prism:NavigateTo 'MDPRoot/NavigationRoot/MainPage'}" />
+                </StackLayout>
+                <StackLayout Grid.Row="2" >
+                    <Label Text="© Smilegate RPG, Inc. All rights reserved. © GameOn Co., Ltd. All Rights Reserved." HorizontalOptions="Center"/>
+                </StackLayout>
+            </Grid>
+        </ContentPage>
+    </MasterDetailPage.Master>
+</MasterDetailPage>
