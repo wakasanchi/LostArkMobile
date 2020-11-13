@@ -34,10 +34,9 @@
                 </ListView>
             </StackLayout>
             <StackLayout AbsoluteLayout.LayoutFlags="PositionProportional" AbsoluteLayout.LayoutBounds="0.9,0.9,Autosize,Autosize">
-                <ImageButton Source="{ext:ImageResource LostArkMobile.Resources.UpArrow.png}" Clicked="ImageButton_Clicked"  Opacity="0.8" HeightRequest="40" WidthRequest="40"/>
+                <ImageButton Source="{ext:ImageResource LostArkMobile.Resources.UpArrow.png}" Clicked="ImageButton_Clicked" CornerRadius="5" HeightRequest="40" WidthRequest="40"/>
             </StackLayout>
             <StackLayout AbsoluteLayout.LayoutFlags="PositionProportional" AbsoluteLayout.LayoutBounds="0.5,1,320,50" BackgroundColor="Red">
-                <!--<controls:MTAdView x:Name="myAds" WidthRequest="320" HeightRequest="50" VerticalOptions ="FillAndExpand" AdsId="{OnPlatform Android='ca-app-pub-8838207688406048/9378457141'}"/>-->
                 <controls:MTAdView x:Name="myAds" WidthRequest="320" HeightRequest="50" VerticalOptions ="FillAndExpand"/>
             </StackLayout>
         </AbsoluteLayout>

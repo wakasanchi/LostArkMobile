@@ -19,10 +19,20 @@
     <ContentPage.Content>
         <StackLayout Margin="10,10,10,10">
             
-            <Label Style="{StaticResource TitleLabelStyle}" Text="v1.3リリース予定内容"/>
+            <Label Style="{StaticResource TitleLabelStyle}" Text="v1.4リリース予定内容"/>
             <Label Style="{StaticResource BodyLabel}" >
                 <Label.Text>
 イベント通知を実装予定です。
+                </Label.Text>
+            </Label>
+
+            <BoxView Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2"  Color="Black" HeightRequest="1"/>
+
+            <Label Style="{StaticResource TitleLabelStyle}" Text="v1.3"/>
+            <Label Style="{StaticResource BodyLabel}" >
+                <Label.Text>
+画像の高解像度化を行いました。
+アイコン名を変更しました。
                 </Label.Text>
             </Label>
 
@@ -42,7 +52,7 @@
             <Label Style="{StaticResource TitleLabelStyle}" Text="v1.0"/>
             <Label Style="{StaticResource BodyLabel}" >
                 <Label.Text>
-v1.0.0をリリースしました。
+v1.0をリリースしました。
 イベントの中で
 ・[250]ポラール島
 ・[430]死の峡谷

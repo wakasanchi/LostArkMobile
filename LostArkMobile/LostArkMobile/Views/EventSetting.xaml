@@ -18,51 +18,6 @@
         </Style>
     </ContentPage.Resources>
     <ContentPage.Content>
-        <!--<Grid Margin="10,10,10,0">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
-            </Grid.RowDefinitions>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="0.7*" />
-                <ColumnDefinition Width="0.3*" />
-            </Grid.ColumnDefinitions>
-            <Label Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Text="ホットタイムイベント" Style="{StaticResource TitleLabel}" />
-            <BoxView Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2"  Color="Black" HeightRequest="1"/>
-            <Label Grid.Row="2" Grid.Column="0" Text="[250]証明の闘技会：競争戦" Style="{StaticResource BodyLabel}" />
-            <Switch Grid.Row="2" Grid.Column="1" IsToggled="True" Style="{StaticResource SwitchStyle}" Toggled="{Binding RefreshCommand}" />
-
-            <Label Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" Text="カオスゲート" Style="{StaticResource TitleLabel}" />
-            <BoxView Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2"  Color="Black" HeightRequest="1"/>
-            <Label Grid.Row="5" Grid.Column="0" Text="[302]揺らめく狂気軍団" Style="{StaticResource BodyLabel}" />
-            <Switch Grid.Row="5" Grid.Column="1" IsToggled="True" Style="{StaticResource SwitchStyle}"/>
-        </Grid>-->
-
-        <!--<ListView x:Name="TitleListView" HasUnevenRows="False" RowHeight="200" BackgroundColor="DimGray">
-            <ListView.ItemTemplate>
-                <DataTemplate>
-                    <ViewCell>
-                        <StackLayout>
-                            <Label Text="{Binding Title}" />
-                            <ListView x:Name="BodyListView" HasUnevenRows="False" RowHeight="100"  ItemsSource="{Binding Bodys}" BackgroundColor="Blue">
-                                <ListView.ItemTemplate>
-                                    <DataTemplate>
-                                        <ViewCell>
-                                            <Label Text="{Binding Body}" />
-                                        </ViewCell>
-                                    </DataTemplate>
-                                </ListView.ItemTemplate>
-                            </ListView>
-                        </StackLayout>
-                    </ViewCell>
-                </DataTemplate>
-            </ListView.ItemTemplate>
-        </ListView>-->
-
         <TableView x:Name="MainTable">
             <TableView.Root>
                 <TableRoot>
@@ -115,17 +70,6 @@
                 </TableRoot>
             </TableView.Root>
         </TableView>
-        
-        <!--<StackLayout Orientation="Vertical" HorizontalOptions="Center" Margin="0,10,0,0">
-            <StackLayout Orientation="Horizontal">
-                <Label Text="[250]証明の闘技会：競争戦" />
-                <Switch IsToggled="True" HorizontalOptions="Center"/>
-            </StackLayout>
-            <StackLayout Orientation="Horizontal">
-                <Label Text="aaaa" />
-                <Switch IsToggled="True" HorizontalOptions="Center"/>
-            </StackLayout>
-        </StackLayout>-->
     </ContentPage.Content>
 
 </ContentPage>
