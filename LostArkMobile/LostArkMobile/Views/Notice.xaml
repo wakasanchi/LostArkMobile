@@ -1,0 +1,56 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="LostArkMobile.Views.Notice"
+             xmlns:ext="clr-namespace:LostArkMobile.Extensions"
+             xmlns:controls="clr-namespace:MarcTron.Plugin.Controls;assembly=Plugin.MtAdmob"
+             Title="{Binding Title}">
+    <ContentPage.Resources>
+        <Style TargetType="Label" x:Key="TitleLabelStyle">
+            <Setter Property="FontSize" Value="Title" />
+        </Style>
+        <Style TargetType="Label" x:Key="BodyLabel">
+            <Setter Property="FontSize" Value="Body" />
+        </Style>
+        <Style TargetType="Switch" x:Key="SwitchStyle">
+            <Setter Property="HorizontalOptions" Value="Center" />
+        </Style>
+    </ContentPage.Resources>
+    <ContentPage.Content>
+        <StackLayout Margin="10,10,10,10">
+            
+            <Label Style="{StaticResource TitleLabelStyle}" Text="v1.3リリース予定内容"/>
+            <Label Style="{StaticResource BodyLabel}" >
+                <Label.Text>
+イベント通知を実装予定です。
+                </Label.Text>
+            </Label>
+
+            <BoxView Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2"  Color="Black" HeightRequest="1"/>
+            
+            <Label Style="{StaticResource TitleLabelStyle}" Text="v1.2"/>
+            <Label Style="{StaticResource BodyLabel}" >
+                <Label.Text>
+メニューに
+「イベント設定」を追加しました。
+各イベントの表示有無の設定を行えます。
+                </Label.Text>
+            </Label>
+
+            <BoxView Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2"  Color="Black" HeightRequest="1"/>
+            
+            <Label Style="{StaticResource TitleLabelStyle}" Text="v1.0"/>
+            <Label Style="{StaticResource BodyLabel}" >
+                <Label.Text>
+v1.0.0をリリースしました。
+イベントの中で
+・[250]ポラール島
+・[430]死の峡谷
+こちらのイベントについては、開催が不定期のため実装されていません。
+                </Label.Text>
+            </Label>
+            
+        </StackLayout>
+    </ContentPage.Content>
+
+</ContentPage>

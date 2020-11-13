@@ -67,22 +67,19 @@ namespace LostArkMobile.ViewModels
         {
             IsRefresing = true;
 
-            Task.Run(() =>
+            NowDate = DateTime.Now;
+            Events = new List<Event>();
+
+            foreach (EventType value in Enum.GetValues(typeof(EventType)))
             {
-                NowDate = DateTime.Now;
-                Events = new List<Event>();
+                CreateEvent(value);
+            }
 
-                foreach (EventType value in Enum.GetValues(typeof(EventType)))
-                {
-                    CreateEvent(value);
-                }
+            SetString();
+            Events = Events.OrderBy(e => e.Time).ToList();
+            ItemList = new ObservableCollection<Event>(Events);
 
-                SetString();
-                Events = Events.OrderBy(e => e.Time).ToList();
-                ItemList = new ObservableCollection<Event>(Events);
-
-                IsRefresing = false;
-            });
+            IsRefresing = false;
         }
 
         private void CreateEvent(EventType eventType)
@@ -132,62 +129,79 @@ namespace LostArkMobile.ViewModels
 
             //イベント格納
             var eventDates = new List<DateTime>();
+            var eventName = string.Empty;
 
             #region [250]証明の闘技会：競争戦
-            //毎週土曜日の14時と20時
-            foreach (var date in dateList)
+            eventName = "[250]証明の闘技会：競争戦";
+            if (GetEventEnable(eventName))
             {
-                if (date.DayOfWeek != DayOfWeek.Saturday) continue;
-                eventDates.Add(new DateTime(date.Year, date.Month, date.Day, 14, 0, 0));
-                eventDates.Add(new DateTime(date.Year, date.Month, date.Day, 20, 0, 0));
+                //毎週土曜日の14時と20時
+                foreach (var date in dateList)
+                {
+                    if (date.DayOfWeek != DayOfWeek.Saturday) continue;
+                    eventDates.Add(new DateTime(date.Year, date.Month, date.Day, 14, 0, 0));
+                    eventDates.Add(new DateTime(date.Year, date.Month, date.Day, 20, 0, 0));
+                }
+                SetEvents(eventDates, "LostArkMobile.Resources.EventTypeHotTime.png", eventName);
             }
-            SetEvents(eventDates, "LostArkMobile.Resources.EventTypeHotTime.png", "[250]証明の闘技会：競争戦");
             #endregion
 
             #region [250]証明の闘技会：殲滅戦
-            //毎週土曜日の14時と20時
-            eventDates = new List<DateTime>();
-            foreach (var date in dateList)
+            eventName = "[250]証明の闘技会：殲滅戦";
+            if (GetEventEnable(eventName))
             {
-                if (date.DayOfWeek != DayOfWeek.Saturday) continue;
-                eventDates.Add(new DateTime(date.Year, date.Month, date.Day, 14, 0, 0));
-                eventDates.Add(new DateTime(date.Year, date.Month, date.Day, 20, 0, 0));
+                //毎週土曜日の14時と20時
+                eventDates = new List<DateTime>();
+                foreach (var date in dateList)
+                {
+                    if (date.DayOfWeek != DayOfWeek.Saturday) continue;
+                    eventDates.Add(new DateTime(date.Year, date.Month, date.Day, 14, 0, 0));
+                    eventDates.Add(new DateTime(date.Year, date.Month, date.Day, 20, 0, 0));
+                }
+                SetEvents(eventDates, "LostArkMobile.Resources.EventTypeHotTime.png", eventName);
             }
-            SetEvents(eventDates, "LostArkMobile.Resources.EventTypeHotTime.png", "[250]証明の闘技会：殲滅戦");
             #endregion
 
             #region [250]証明の闘技会：大将戦
-            //毎週土曜20時と日曜14時
-            eventDates = new List<DateTime>();
-            foreach (var date in dateList)
+            eventName = "[250]証明の闘技会：大将戦";
+            if (GetEventEnable(eventName))
             {
-                if (date.DayOfWeek == DayOfWeek.Saturday)
+                //毎週土曜20時と日曜14時
+                eventDates = new List<DateTime>();
+                foreach (var date in dateList)
                 {
-                    eventDates.Add(new DateTime(date.Year, date.Month, date.Day, 20, 0, 0));
+                    if (date.DayOfWeek == DayOfWeek.Saturday)
+                    {
+                        eventDates.Add(new DateTime(date.Year, date.Month, date.Day, 20, 0, 0));
+                    }
+                    else if (date.DayOfWeek == DayOfWeek.Sunday)
+                    {
+                        eventDates.Add(new DateTime(date.Year, date.Month, date.Day, 14, 0, 0));
+                    }
                 }
-                else if (date.DayOfWeek == DayOfWeek.Sunday)
-                {
-                    eventDates.Add(new DateTime(date.Year, date.Month, date.Day, 14, 0, 0));
-                }
+                SetEvents(eventDates, "LostArkMobile.Resources.EventTypeHotTime.png", eventName);
             }
-            SetEvents(eventDates, "LostArkMobile.Resources.EventTypeHotTime.png", "[250]証明の闘技会：大将戦");
             #endregion
 
             #region [250]証明の闘技会：乱闘戦
-            //毎週土曜14時と日曜20時
-            eventDates = new List<DateTime>();
-            foreach (var date in dateList)
+            eventName = "[250]証明の闘技会：乱闘戦";
+            if (GetEventEnable(eventName))
             {
-                if (date.DayOfWeek == DayOfWeek.Saturday)
+                //毎週土曜14時と日曜20時
+                eventDates = new List<DateTime>();
+                foreach (var date in dateList)
                 {
-                    eventDates.Add(new DateTime(date.Year, date.Month, date.Day, 14, 0, 0));
+                    if (date.DayOfWeek == DayOfWeek.Saturday)
+                    {
+                        eventDates.Add(new DateTime(date.Year, date.Month, date.Day, 14, 0, 0));
+                    }
+                    else if (date.DayOfWeek == DayOfWeek.Sunday)
+                    {
+                        eventDates.Add(new DateTime(date.Year, date.Month, date.Day, 20, 0, 0));
+                    }
                 }
-                else if (date.DayOfWeek == DayOfWeek.Sunday)
-                {
-                    eventDates.Add(new DateTime(date.Year, date.Month, date.Day, 20, 0, 0));
-                }
+                SetEvents(eventDates, "LostArkMobile.Resources.EventTypeHotTime.png", eventName);
             }
-            SetEvents(eventDates, "LostArkMobile.Resources.EventTypeHotTime.png", "[250]証明の闘技会：乱闘戦");
             #endregion
         }
 
@@ -205,48 +219,65 @@ namespace LostArkMobile.ViewModels
 
             //イベント格納
             var eventDates = new List<DateTime>();
+            var eventName = string.Empty;
 
             #region [302]揺らめく狂気軍団
-            //毎週火曜日の20時
-            foreach (var date in dateList)
+            eventName = "[302]揺らめく狂気軍団";
+            if (GetEventEnable(eventName))
             {
-                if (date.DayOfWeek != DayOfWeek.Tuesday) continue;
-                eventDates.Add(new DateTime(date.Year, date.Month, date.Day, 20, 0, 0));
+                //毎週火曜日の20時
+                foreach (var date in dateList)
+                {
+                    if (date.DayOfWeek != DayOfWeek.Tuesday) continue;
+                    eventDates.Add(new DateTime(date.Year, date.Month, date.Day, 20, 0, 0));
+                }
+                SetEvents(eventDates, "LostArkMobile.Resources.EventTypeChaosGate.png", eventName);
             }
-            SetEvents(eventDates, "LostArkMobile.Resources.EventTypeChaosGate.png", "[302]揺らめく狂気軍団");
             #endregion
 
             #region [302]揺らめく疫病軍団
-            //毎週金曜日の20時
-            eventDates = new List<DateTime>();
-            foreach (var date in dateList)
+            eventName = "[302]揺らめく疫病軍団";
+            if (GetEventEnable(eventName))
             {
-                if (date.DayOfWeek != DayOfWeek.Friday) continue;
-                eventDates.Add(new DateTime(date.Year, date.Month, date.Day, 20, 0, 0));
+                //毎週金曜日の20時
+                eventDates = new List<DateTime>();
+                foreach (var date in dateList)
+                {
+                    if (date.DayOfWeek != DayOfWeek.Friday) continue;
+                    eventDates.Add(new DateTime(date.Year, date.Month, date.Day, 20, 0, 0));
+                }
+                SetEvents(eventDates, "LostArkMobile.Resources.EventTypeChaosGate.png", eventName);
             }
-            SetEvents(eventDates, "LostArkMobile.Resources.EventTypeChaosGate.png", "[302]揺らめく疫病軍団");
             #endregion
 
             #region [302]揺らめく暗黒軍団
-            //毎週土曜日の22時
-            eventDates = new List<DateTime>();
-            foreach (var date in dateList)
+            eventName = "[302]揺らめく暗黒軍団";
+            if (GetEventEnable(eventName))
             {
-                if (date.DayOfWeek != DayOfWeek.Saturday) continue;
-                eventDates.Add(new DateTime(date.Year, date.Month, date.Day, 22, 0, 0));
+                //毎週土曜日の22時
+                eventDates = new List<DateTime>();
+                foreach (var date in dateList)
+                {
+                    if (date.DayOfWeek != DayOfWeek.Saturday) continue;
+                    eventDates.Add(new DateTime(date.Year, date.Month, date.Day, 22, 0, 0));
+                }
+                SetEvents(eventDates, "LostArkMobile.Resources.EventTypeChaosGate.png", eventName);
             }
-            SetEvents(eventDates, "LostArkMobile.Resources.EventTypeChaosGate.png", "[302]揺らめく暗黒軍団");
             #endregion
 
             #region [302]揺らめく夢幻軍団
-            //毎週日曜日の22時
-            eventDates = new List<DateTime>();
-            foreach (var date in dateList)
+            eventName = "[302]揺らめく夢幻軍団";
+            if (GetEventEnable(eventName))
             {
-                if (date.DayOfWeek != DayOfWeek.Sunday) continue;
-                eventDates.Add(new DateTime(date.Year, date.Month, date.Day, 22, 0, 0));
+                //毎週日曜日の22時
+                eventDates = new List<DateTime>();
+                foreach (var date in dateList)
+                {
+                    if (date.DayOfWeek != DayOfWeek.Sunday) continue;
+                    eventDates.Add(new DateTime(date.Year, date.Month, date.Day, 22, 0, 0));
+                }
+                SetEvents(eventDates, "LostArkMobile.Resources.EventTypeChaosGate.png", eventName);
             }
-            SetEvents(eventDates, "LostArkMobile.Resources.EventTypeChaosGate.png", "[302]揺らめく夢幻軍団");
             #endregion
         }
 
@@ -264,101 +295,126 @@ namespace LostArkMobile.ViewModels
 
             //イベント格納
             var eventDates = new List<DateTime>();
+            var eventName = string.Empty;
 
             #region [310]シグナトゥス
-            //毎週木曜日の20時と金曜日の2時
-            foreach (var date in dateList)
+            eventName = "[310]シグナトゥス";
+            if (GetEventEnable(eventName))
             {
-                if (date.DayOfWeek == DayOfWeek.Thursday)
+                //毎週木曜日の20時と金曜日の2時
+                foreach (var date in dateList)
                 {
-                    eventDates.Add(new DateTime(date.Year, date.Month, date.Day, 20, 0, 0));
+                    if (date.DayOfWeek == DayOfWeek.Thursday)
+                    {
+                        eventDates.Add(new DateTime(date.Year, date.Month, date.Day, 20, 0, 0));
+                    }
+                    else if (date.DayOfWeek == DayOfWeek.Friday)
+                    {
+                        eventDates.Add(new DateTime(date.Year, date.Month, date.Day, 2, 0, 0));
+                    }
                 }
-                else if (date.DayOfWeek == DayOfWeek.Friday)
-                {
-                    eventDates.Add(new DateTime(date.Year, date.Month, date.Day, 2, 0, 0));
-                }
+                SetEvents(eventDates, "LostArkMobile.Resources.EventTypeFieldBoss.png", eventName);
             }
-            SetEvents(eventDates, "LostArkMobile.Resources.EventTypeFieldBoss.png", "[310]シグナトゥス");
             #endregion
 
             #region [340]タルシラ
-            //毎週土曜日の20時と日曜日の20時
-            eventDates = new List<DateTime>();
-            foreach (var date in dateList)
+            eventName = "[340]タルシラ";
+            if (GetEventEnable(eventName))
             {
-                if (date.DayOfWeek == DayOfWeek.Saturday)
+                //毎週土曜日の20時と日曜日の20時
+                eventDates = new List<DateTime>();
+                foreach (var date in dateList)
                 {
-                    eventDates.Add(new DateTime(date.Year, date.Month, date.Day, 20, 0, 0));
+                    if (date.DayOfWeek == DayOfWeek.Saturday)
+                    {
+                        eventDates.Add(new DateTime(date.Year, date.Month, date.Day, 20, 0, 0));
+                    }
+                    else if (date.DayOfWeek == DayOfWeek.Sunday)
+                    {
+                        eventDates.Add(new DateTime(date.Year, date.Month, date.Day, 20, 0, 0));
+                    }
                 }
-                else if (date.DayOfWeek == DayOfWeek.Sunday)
-                {
-                    eventDates.Add(new DateTime(date.Year, date.Month, date.Day, 20, 0, 0));
-                }
+                SetEvents(eventDates, "LostArkMobile.Resources.EventTypeFieldBoss.png", eventName);
             }
-            SetEvents(eventDates, "LostArkMobile.Resources.EventTypeFieldBoss.png", "[340]タルシラ");
             #endregion
 
             #region [355]エラスモ
-            //毎日の6時,14時,20時
-            eventDates = new List<DateTime>();
-            foreach (var date in dateList)
+            eventName = "[355]エラスモ";
+            if (GetEventEnable(eventName))
             {
-                eventDates.Add(new DateTime(date.Year, date.Month, date.Day, 6, 0, 0));
-                eventDates.Add(new DateTime(date.Year, date.Month, date.Day, 14, 0, 0));
-                eventDates.Add(new DateTime(date.Year, date.Month, date.Day, 20, 0, 0));
+                //毎日の6時,14時,20時
+                eventDates = new List<DateTime>();
+                foreach (var date in dateList)
+                {
+                    eventDates.Add(new DateTime(date.Year, date.Month, date.Day, 6, 0, 0));
+                    eventDates.Add(new DateTime(date.Year, date.Month, date.Day, 14, 0, 0));
+                    eventDates.Add(new DateTime(date.Year, date.Month, date.Day, 20, 0, 0));
+                }
+                SetEvents(eventDates, "LostArkMobile.Resources.EventTypeFieldBoss.png", eventName);
             }
-            SetEvents(eventDates, "LostArkMobile.Resources.EventTypeFieldBoss.png", "[355]エラスモ");
             #endregion
 
             #region [370]ソル＝グランデ
-            //毎週土曜日の20時と日曜日の20時
-            eventDates = new List<DateTime>();
-            foreach (var date in dateList)
+            eventName = "[370]ソル＝グランデ";
+            if (GetEventEnable(eventName))
             {
-                if (date.DayOfWeek == DayOfWeek.Saturday)
+                //毎週土曜日の20時と日曜日の20時
+                eventDates = new List<DateTime>();
+                foreach (var date in dateList)
                 {
-                    eventDates.Add(new DateTime(date.Year, date.Month, date.Day, 20, 0, 0));
+                    if (date.DayOfWeek == DayOfWeek.Saturday)
+                    {
+                        eventDates.Add(new DateTime(date.Year, date.Month, date.Day, 20, 0, 0));
+                    }
+                    else if (date.DayOfWeek == DayOfWeek.Sunday)
+                    {
+                        eventDates.Add(new DateTime(date.Year, date.Month, date.Day, 20, 0, 0));
+                    }
                 }
-                else if (date.DayOfWeek == DayOfWeek.Sunday)
-                {
-                    eventDates.Add(new DateTime(date.Year, date.Month, date.Day, 20, 0, 0));
-                }
+                SetEvents(eventDates, "LostArkMobile.Resources.EventTypeFieldBoss.png", eventName);
             }
-            SetEvents(eventDates, "LostArkMobile.Resources.EventTypeFieldBoss.png", "[370]ソル＝グランデ");
             #endregion
 
             #region [385]混沌の麒麟
-            //毎週木曜日の20時と金曜日の2時
-            eventDates = new List<DateTime>();
-            foreach (var date in dateList)
+            eventName = "[385]混沌の麒麟";
+            if (GetEventEnable(eventName))
             {
-                if (date.DayOfWeek == DayOfWeek.Thursday)
+                //毎週木曜日の20時と金曜日の2時
+                eventDates = new List<DateTime>();
+                foreach (var date in dateList)
                 {
-                    eventDates.Add(new DateTime(date.Year, date.Month, date.Day, 20, 0, 0));
+                    if (date.DayOfWeek == DayOfWeek.Thursday)
+                    {
+                        eventDates.Add(new DateTime(date.Year, date.Month, date.Day, 20, 0, 0));
+                    }
+                    else if (date.DayOfWeek == DayOfWeek.Friday)
+                    {
+                        eventDates.Add(new DateTime(date.Year, date.Month, date.Day, 2, 0, 0));
+                    }
                 }
-                else if (date.DayOfWeek == DayOfWeek.Friday)
-                {
-                    eventDates.Add(new DateTime(date.Year, date.Month, date.Day, 2, 0, 0));
-                }
+                SetEvents(eventDates, "LostArkMobile.Resources.EventTypeFieldBoss.png", eventName);
             }
-            SetEvents(eventDates, "LostArkMobile.Resources.EventTypeFieldBoss.png", "[385]混沌の麒麟");
             #endregion
 
             #region [415]プロキシマ
-            //毎週金曜日の2時と土曜日の20時
-            eventDates = new List<DateTime>();
-            foreach (var date in dateList)
+            eventName = "[415]プロキシマ";
+            if (GetEventEnable(eventName))
             {
-                if (date.DayOfWeek == DayOfWeek.Friday)
+                //毎週金曜日の2時と土曜日の20時
+                eventDates = new List<DateTime>();
+                foreach (var date in dateList)
                 {
-                    eventDates.Add(new DateTime(date.Year, date.Month, date.Day, 2, 0, 0));
+                    if (date.DayOfWeek == DayOfWeek.Friday)
+                    {
+                        eventDates.Add(new DateTime(date.Year, date.Month, date.Day, 2, 0, 0));
+                    }
+                    else if (date.DayOfWeek == DayOfWeek.Saturday)
+                    {
+                        eventDates.Add(new DateTime(date.Year, date.Month, date.Day, 20, 0, 0));
+                    }
                 }
-                else if (date.DayOfWeek == DayOfWeek.Saturday)
-                {
-                    eventDates.Add(new DateTime(date.Year, date.Month, date.Day, 20, 0, 0));
-                }
+                SetEvents(eventDates, "LostArkMobile.Resources.EventTypeFieldBoss.png", eventName);
             }
-            SetEvents(eventDates, "LostArkMobile.Resources.EventTypeFieldBoss.png", "[415]プロキシマ");
             #endregion
         }
 
@@ -376,163 +432,180 @@ namespace LostArkMobile.ViewModels
 
             //イベント格納
             var eventDates = new List<DateTime>();
+            var eventName = string.Empty;
 
             #region [302]航海協同：アルデタイン
-            //毎週
-            //月曜日の19:30
-            //火曜日の23:30
-            //水曜日の21:30
-            //木曜日の19:30
-            //金曜日の23:30
-            //土曜日の21:30
-            //日曜日の19:30
-            foreach (var date in dateList)
+            eventName = "[302]航海協同：アルデタイン";
+            if (GetEventEnable(eventName))
             {
-                if (date.DayOfWeek == DayOfWeek.Monday)
+                //毎週
+                //月曜日の19:30
+                //火曜日の23:30
+                //水曜日の21:30
+                //木曜日の19:30
+                //金曜日の23:30
+                //土曜日の21:30
+                //日曜日の19:30
+                foreach (var date in dateList)
                 {
-                    eventDates.Add(new DateTime(date.Year, date.Month, date.Day, 19, 30, 0));
+                    if (date.DayOfWeek == DayOfWeek.Monday)
+                    {
+                        eventDates.Add(new DateTime(date.Year, date.Month, date.Day, 19, 30, 0));
+                    }
+                    else if (date.DayOfWeek == DayOfWeek.Tuesday)
+                    {
+                        eventDates.Add(new DateTime(date.Year, date.Month, date.Day, 23, 30, 0));
+                    }
+                    else if (date.DayOfWeek == DayOfWeek.Wednesday)
+                    {
+                        eventDates.Add(new DateTime(date.Year, date.Month, date.Day, 21, 30, 0));
+                    }
+                    else if (date.DayOfWeek == DayOfWeek.Thursday)
+                    {
+                        eventDates.Add(new DateTime(date.Year, date.Month, date.Day, 19, 30, 0));
+                    }
+                    else if (date.DayOfWeek == DayOfWeek.Friday)
+                    {
+                        eventDates.Add(new DateTime(date.Year, date.Month, date.Day, 23, 30, 0));
+                    }
+                    else if (date.DayOfWeek == DayOfWeek.Saturday)
+                    {
+                        eventDates.Add(new DateTime(date.Year, date.Month, date.Day, 21, 30, 0));
+                    }
+                    else if (date.DayOfWeek == DayOfWeek.Sunday)
+                    {
+                        eventDates.Add(new DateTime(date.Year, date.Month, date.Day, 19, 30, 0));
+                    }
                 }
-                else if (date.DayOfWeek == DayOfWeek.Tuesday)
-                {
-                    eventDates.Add(new DateTime(date.Year, date.Month, date.Day, 23, 30, 0));
-                }
-                else if (date.DayOfWeek == DayOfWeek.Wednesday)
-                {
-                    eventDates.Add(new DateTime(date.Year, date.Month, date.Day, 21, 30, 0));
-                }
-                else if (date.DayOfWeek == DayOfWeek.Thursday)
-                {
-                    eventDates.Add(new DateTime(date.Year, date.Month, date.Day, 19, 30, 0));
-                }
-                else if (date.DayOfWeek == DayOfWeek.Friday)
-                {
-                    eventDates.Add(new DateTime(date.Year, date.Month, date.Day, 23, 30, 0));
-                }
-                else if (date.DayOfWeek == DayOfWeek.Saturday)
-                {
-                    eventDates.Add(new DateTime(date.Year, date.Month, date.Day, 21, 30, 0));
-                }
-                else if (date.DayOfWeek == DayOfWeek.Sunday)
-                {
-                    eventDates.Add(new DateTime(date.Year, date.Month, date.Day, 19, 30, 0));
-                }
+                SetEvents(eventDates, "LostArkMobile.Resources.EventTypeVoyage.png", eventName);
             }
-            SetEvents(eventDates, "LostArkMobile.Resources.EventTypeVoyage.png", "[302]航海協同：アルデタイン");
             #endregion
 
             #region [302]航海協同：ベルン
-            //毎週
-            //月曜日の23:30
-            //火曜日の21:30
-            //水曜日の19:30
-            //木曜日の23:30
-            //金曜日の21:30
-            //土曜日の19:30
-            //日曜日の21:30
-            eventDates = new List<DateTime>();
-            foreach (var date in dateList)
+            eventName = "[302]航海協同：ベルン";
+            if (GetEventEnable(eventName))
             {
-                if (date.DayOfWeek == DayOfWeek.Monday)
+                //毎週
+                //月曜日の23:30
+                //火曜日の21:30
+                //水曜日の19:30
+                //木曜日の23:30
+                //金曜日の21:30
+                //土曜日の19:30
+                //日曜日の21:30
+                eventDates = new List<DateTime>();
+                foreach (var date in dateList)
                 {
-                    eventDates.Add(new DateTime(date.Year, date.Month, date.Day, 23, 30, 0));
+                    if (date.DayOfWeek == DayOfWeek.Monday)
+                    {
+                        eventDates.Add(new DateTime(date.Year, date.Month, date.Day, 23, 30, 0));
+                    }
+                    else if (date.DayOfWeek == DayOfWeek.Tuesday)
+                    {
+                        eventDates.Add(new DateTime(date.Year, date.Month, date.Day, 21, 30, 0));
+                    }
+                    else if (date.DayOfWeek == DayOfWeek.Wednesday)
+                    {
+                        eventDates.Add(new DateTime(date.Year, date.Month, date.Day, 19, 30, 0));
+                    }
+                    else if (date.DayOfWeek == DayOfWeek.Thursday)
+                    {
+                        eventDates.Add(new DateTime(date.Year, date.Month, date.Day, 23, 30, 0));
+                    }
+                    else if (date.DayOfWeek == DayOfWeek.Friday)
+                    {
+                        eventDates.Add(new DateTime(date.Year, date.Month, date.Day, 21, 30, 0));
+                    }
+                    else if (date.DayOfWeek == DayOfWeek.Saturday)
+                    {
+                        eventDates.Add(new DateTime(date.Year, date.Month, date.Day, 19, 30, 0));
+                    }
+                    else if (date.DayOfWeek == DayOfWeek.Sunday)
+                    {
+                        eventDates.Add(new DateTime(date.Year, date.Month, date.Day, 21, 30, 0));
+                    }
                 }
-                else if (date.DayOfWeek == DayOfWeek.Tuesday)
-                {
-                    eventDates.Add(new DateTime(date.Year, date.Month, date.Day, 21, 30, 0));
-                }
-                else if (date.DayOfWeek == DayOfWeek.Wednesday)
-                {
-                    eventDates.Add(new DateTime(date.Year, date.Month, date.Day, 19, 30, 0));
-                }
-                else if (date.DayOfWeek == DayOfWeek.Thursday)
-                {
-                    eventDates.Add(new DateTime(date.Year, date.Month, date.Day, 23, 30, 0));
-                }
-                else if (date.DayOfWeek == DayOfWeek.Friday)
-                {
-                    eventDates.Add(new DateTime(date.Year, date.Month, date.Day, 21, 30, 0));
-                }
-                else if (date.DayOfWeek == DayOfWeek.Saturday)
-                {
-                    eventDates.Add(new DateTime(date.Year, date.Month, date.Day, 19, 30, 0));
-                }
-                else if (date.DayOfWeek == DayOfWeek.Sunday)
-                {
-                    eventDates.Add(new DateTime(date.Year, date.Month, date.Day, 21, 30, 0));
-                }
+                SetEvents(eventDates, "LostArkMobile.Resources.EventTypeVoyage.png", eventName);
             }
-            SetEvents(eventDates, "LostArkMobile.Resources.EventTypeVoyage.png", "[302]航海協同：ベルン");
             #endregion
 
             #region [302]航海協同：アニツ
-            //毎週
-            //月曜日の21:30
-            //火曜日の19:30
-            //水曜日の23:30
-            //木曜日の21:30
-            //金曜日の19:30
-            //土曜日の23:30
-            //日曜日の23:30
-            eventDates = new List<DateTime>();
-            foreach (var date in dateList)
+            eventName = "[302]航海協同：アニツ";
+            if (GetEventEnable(eventName))
             {
-                if (date.DayOfWeek == DayOfWeek.Monday)
+                //毎週
+                //月曜日の21:30
+                //火曜日の19:30
+                //水曜日の23:30
+                //木曜日の21:30
+                //金曜日の19:30
+                //土曜日の23:30
+                //日曜日の23:30
+                eventDates = new List<DateTime>();
+                foreach (var date in dateList)
                 {
-                    eventDates.Add(new DateTime(date.Year, date.Month, date.Day, 21, 30, 0));
+                    if (date.DayOfWeek == DayOfWeek.Monday)
+                    {
+                        eventDates.Add(new DateTime(date.Year, date.Month, date.Day, 21, 30, 0));
+                    }
+                    else if (date.DayOfWeek == DayOfWeek.Tuesday)
+                    {
+                        eventDates.Add(new DateTime(date.Year, date.Month, date.Day, 19, 30, 0));
+                    }
+                    else if (date.DayOfWeek == DayOfWeek.Wednesday)
+                    {
+                        eventDates.Add(new DateTime(date.Year, date.Month, date.Day, 23, 30, 0));
+                    }
+                    else if (date.DayOfWeek == DayOfWeek.Thursday)
+                    {
+                        eventDates.Add(new DateTime(date.Year, date.Month, date.Day, 21, 30, 0));
+                    }
+                    else if (date.DayOfWeek == DayOfWeek.Friday)
+                    {
+                        eventDates.Add(new DateTime(date.Year, date.Month, date.Day, 19, 30, 0));
+                    }
+                    else if (date.DayOfWeek == DayOfWeek.Saturday)
+                    {
+                        eventDates.Add(new DateTime(date.Year, date.Month, date.Day, 23, 30, 0));
+                    }
+                    else if (date.DayOfWeek == DayOfWeek.Sunday)
+                    {
+                        eventDates.Add(new DateTime(date.Year, date.Month, date.Day, 23, 30, 0));
+                    }
                 }
-                else if (date.DayOfWeek == DayOfWeek.Tuesday)
-                {
-                    eventDates.Add(new DateTime(date.Year, date.Month, date.Day, 19, 30, 0));
-                }
-                else if (date.DayOfWeek == DayOfWeek.Wednesday)
-                {
-                    eventDates.Add(new DateTime(date.Year, date.Month, date.Day, 23, 30, 0));
-                }
-                else if (date.DayOfWeek == DayOfWeek.Thursday)
-                {
-                    eventDates.Add(new DateTime(date.Year, date.Month, date.Day, 21, 30, 0));
-                }
-                else if (date.DayOfWeek == DayOfWeek.Friday)
-                {
-                    eventDates.Add(new DateTime(date.Year, date.Month, date.Day, 19, 30, 0));
-                }
-                else if (date.DayOfWeek == DayOfWeek.Saturday)
-                {
-                    eventDates.Add(new DateTime(date.Year, date.Month, date.Day, 23, 30, 0));
-                }
-                else if (date.DayOfWeek == DayOfWeek.Sunday)
-                {
-                    eventDates.Add(new DateTime(date.Year, date.Month, date.Day, 23, 30, 0));
-                }
+                SetEvents(eventDates, "LostArkMobile.Resources.EventTypeVoyage.png", eventName);
             }
-            SetEvents(eventDates, "LostArkMobile.Resources.EventTypeVoyage.png", "[302]航海協同：アニツ");
             #endregion
 
             #region [302]調和の門
-            //毎週
-            //月曜日の18:00 22:00
-            //水曜日の18:00 22:00
-            //土曜日の18:00 23:00
-            eventDates = new List<DateTime>();
-            foreach (var date in dateList)
+            eventName = "[302]調和の門";
+            if (GetEventEnable(eventName))
             {
-                if (date.DayOfWeek == DayOfWeek.Monday)
+                //毎週
+                //月曜日の18:00 22:00
+                //水曜日の18:00 22:00
+                //土曜日の18:00 23:00
+                eventDates = new List<DateTime>();
+                foreach (var date in dateList)
                 {
-                    eventDates.Add(new DateTime(date.Year, date.Month, date.Day, 18, 00, 0));
-                    eventDates.Add(new DateTime(date.Year, date.Month, date.Day, 22, 00, 0));
+                    if (date.DayOfWeek == DayOfWeek.Monday)
+                    {
+                        eventDates.Add(new DateTime(date.Year, date.Month, date.Day, 18, 00, 0));
+                        eventDates.Add(new DateTime(date.Year, date.Month, date.Day, 22, 00, 0));
+                    }
+                    else if (date.DayOfWeek == DayOfWeek.Wednesday)
+                    {
+                        eventDates.Add(new DateTime(date.Year, date.Month, date.Day, 18, 00, 0));
+                        eventDates.Add(new DateTime(date.Year, date.Month, date.Day, 22, 00, 0));
+                    }
+                    else if (date.DayOfWeek == DayOfWeek.Saturday)
+                    {
+                        eventDates.Add(new DateTime(date.Year, date.Month, date.Day, 18, 00, 0));
+                        eventDates.Add(new DateTime(date.Year, date.Month, date.Day, 23, 00, 0));
+                    }
                 }
-                else if (date.DayOfWeek == DayOfWeek.Wednesday)
-                {
-                    eventDates.Add(new DateTime(date.Year, date.Month, date.Day, 18, 00, 0));
-                    eventDates.Add(new DateTime(date.Year, date.Month, date.Day, 22, 00, 0));
-                }
-                else if (date.DayOfWeek == DayOfWeek.Saturday)
-                {
-                    eventDates.Add(new DateTime(date.Year, date.Month, date.Day, 18, 00, 0));
-                    eventDates.Add(new DateTime(date.Year, date.Month, date.Day, 23, 00, 0));
-                }
+                SetEvents(eventDates, "LostArkMobile.Resources.EventTypeVoyage.png", eventName);
             }
-            SetEvents(eventDates, "LostArkMobile.Resources.EventTypeVoyage.png", "[302]調和の門");
             #endregion
         }
 
@@ -550,92 +623,117 @@ namespace LostArkMobile.ViewModels
 
             //イベント格納
             var eventDates = new List<DateTime>();
+            var eventName = string.Empty;
 
             #region [250]眠る歌の島
-            //毎日の0:20,3:20,6:20,9:20,12:20,15:20,18:20,21:20
-            eventDates = new List<DateTime>();
-            foreach (var date in dateList)
+            eventName = "[250]眠る歌の島";
+            if (GetEventEnable(eventName))
             {
-                eventDates.Add(new DateTime(date.Year, date.Month, date.Day, 0, 20, 0));
-                eventDates.Add(new DateTime(date.Year, date.Month, date.Day, 3, 20, 0));
-                eventDates.Add(new DateTime(date.Year, date.Month, date.Day, 6, 20, 0));
-                eventDates.Add(new DateTime(date.Year, date.Month, date.Day, 9, 20, 0));
-                eventDates.Add(new DateTime(date.Year, date.Month, date.Day, 12, 20, 0));
-                eventDates.Add(new DateTime(date.Year, date.Month, date.Day, 15, 20, 0));
-                eventDates.Add(new DateTime(date.Year, date.Month, date.Day, 18, 20, 0));
-                eventDates.Add(new DateTime(date.Year, date.Month, date.Day, 21, 20, 0));
+                //毎日の0:20,3:20,6:20,9:20,12:20,15:20,18:20,21:20
+                eventDates = new List<DateTime>();
+                foreach (var date in dateList)
+                {
+                    eventDates.Add(new DateTime(date.Year, date.Month, date.Day, 0, 20, 0));
+                    eventDates.Add(new DateTime(date.Year, date.Month, date.Day, 3, 20, 0));
+                    eventDates.Add(new DateTime(date.Year, date.Month, date.Day, 6, 20, 0));
+                    eventDates.Add(new DateTime(date.Year, date.Month, date.Day, 9, 20, 0));
+                    eventDates.Add(new DateTime(date.Year, date.Month, date.Day, 12, 20, 0));
+                    eventDates.Add(new DateTime(date.Year, date.Month, date.Day, 15, 20, 0));
+                    eventDates.Add(new DateTime(date.Year, date.Month, date.Day, 18, 20, 0));
+                    eventDates.Add(new DateTime(date.Year, date.Month, date.Day, 21, 20, 0));
+                }
+                SetEvents(eventDates, "LostArkMobile.Resources.EventTypeIsland_nemureru.png", eventName);
             }
-            SetEvents(eventDates, "LostArkMobile.Resources.EventTypeIsland_nemureru.png", "[250]眠る歌の島");
             #endregion
 
             #region [250]ドゥキー島
-            //毎日の0:50,4:50,8:50,12:50,16:50,20:50
-            eventDates = new List<DateTime>();
-            foreach (var date in dateList)
+            eventName = "[250]ドゥキー島";
+            if (GetEventEnable(eventName))
             {
-                eventDates.Add(new DateTime(date.Year, date.Month, date.Day, 0, 50, 0));
-                eventDates.Add(new DateTime(date.Year, date.Month, date.Day, 4, 50, 0));
-                eventDates.Add(new DateTime(date.Year, date.Month, date.Day, 8, 50, 0));
-                eventDates.Add(new DateTime(date.Year, date.Month, date.Day, 12, 50, 0));
-                eventDates.Add(new DateTime(date.Year, date.Month, date.Day, 16, 50, 0));
-                eventDates.Add(new DateTime(date.Year, date.Month, date.Day, 20, 50, 0));
+                //毎日の0:50,4:50,8:50,12:50,16:50,20:50
+                eventDates = new List<DateTime>();
+                foreach (var date in dateList)
+                {
+                    eventDates.Add(new DateTime(date.Year, date.Month, date.Day, 0, 50, 0));
+                    eventDates.Add(new DateTime(date.Year, date.Month, date.Day, 4, 50, 0));
+                    eventDates.Add(new DateTime(date.Year, date.Month, date.Day, 8, 50, 0));
+                    eventDates.Add(new DateTime(date.Year, date.Month, date.Day, 12, 50, 0));
+                    eventDates.Add(new DateTime(date.Year, date.Month, date.Day, 16, 50, 0));
+                    eventDates.Add(new DateTime(date.Year, date.Month, date.Day, 20, 50, 0));
+                }
+                SetEvents(eventDates, "LostArkMobile.Resources.EventTypeIsland_dokey.png", eventName);
             }
-            SetEvents(eventDates, "LostArkMobile.Resources.EventTypeIsland_dokey.png", "[250]ドゥキー島");
             #endregion
 
             #region [250]新月の島
-            //毎日の3:00,7:00,11:00,15:00,19:00,23:00
-            eventDates = new List<DateTime>();
-            foreach (var date in dateList)
+            eventName = "[250]新月の島";
+            if (GetEventEnable(eventName))
             {
-                eventDates.Add(new DateTime(date.Year, date.Month, date.Day, 3, 00, 0));
-                eventDates.Add(new DateTime(date.Year, date.Month, date.Day, 7, 00, 0));
-                eventDates.Add(new DateTime(date.Year, date.Month, date.Day, 11, 00, 0));
-                eventDates.Add(new DateTime(date.Year, date.Month, date.Day, 15, 00, 0));
-                eventDates.Add(new DateTime(date.Year, date.Month, date.Day, 19, 00, 0));
-                eventDates.Add(new DateTime(date.Year, date.Month, date.Day, 23, 00, 0));
+                //毎日の3:00,7:00,11:00,15:00,19:00,23:00
+                eventDates = new List<DateTime>();
+                foreach (var date in dateList)
+                {
+                    eventDates.Add(new DateTime(date.Year, date.Month, date.Day, 3, 00, 0));
+                    eventDates.Add(new DateTime(date.Year, date.Month, date.Day, 7, 00, 0));
+                    eventDates.Add(new DateTime(date.Year, date.Month, date.Day, 11, 00, 0));
+                    eventDates.Add(new DateTime(date.Year, date.Month, date.Day, 15, 00, 0));
+                    eventDates.Add(new DateTime(date.Year, date.Month, date.Day, 19, 00, 0));
+                    eventDates.Add(new DateTime(date.Year, date.Month, date.Day, 23, 00, 0));
+                }
+                SetEvents(eventDates, "LostArkMobile.Resources.EventTypeIsland_singetu.png", eventName);
             }
-            SetEvents(eventDates, "LostArkMobile.Resources.EventTypeIsland_singetu.png", "[250]新月の島");
             #endregion
 
             #region [250]邪欲の島
-            //毎日の1:20,7:20,13:20,19:20
-            eventDates = new List<DateTime>();
-            foreach (var date in dateList)
+            eventName = "[250]邪欲の島";
+            if (GetEventEnable(eventName))
             {
-                eventDates.Add(new DateTime(date.Year, date.Month, date.Day, 1, 20, 0));
-                eventDates.Add(new DateTime(date.Year, date.Month, date.Day, 7, 20, 0));
-                eventDates.Add(new DateTime(date.Year, date.Month, date.Day, 13, 20, 0));
-                eventDates.Add(new DateTime(date.Year, date.Month, date.Day, 19, 20, 0));
+                //毎日の1:20,7:20,13:20,19:20
+                eventDates = new List<DateTime>();
+                foreach (var date in dateList)
+                {
+                    eventDates.Add(new DateTime(date.Year, date.Month, date.Day, 1, 20, 0));
+                    eventDates.Add(new DateTime(date.Year, date.Month, date.Day, 7, 20, 0));
+                    eventDates.Add(new DateTime(date.Year, date.Month, date.Day, 13, 20, 0));
+                    eventDates.Add(new DateTime(date.Year, date.Month, date.Day, 19, 20, 0));
+                }
+                SetEvents(eventDates, "LostArkMobile.Resources.EventTypeIsland_jayoku.png", eventName);
             }
-            SetEvents(eventDates, "LostArkMobile.Resources.EventTypeIsland_jayoku.png", "[250]邪欲の島");
             #endregion
 
             #region [280]アラケル
-            //毎日の1:50,7:50,13:50,19:50
-            eventDates = new List<DateTime>();
-            foreach (var date in dateList)
+            eventName = "[280]アラケル";
+            if (GetEventEnable(eventName))
             {
-                eventDates.Add(new DateTime(date.Year, date.Month, date.Day, 1, 50, 0));
-                eventDates.Add(new DateTime(date.Year, date.Month, date.Day, 7, 50, 0));
-                eventDates.Add(new DateTime(date.Year, date.Month, date.Day, 13, 50, 0));
-                eventDates.Add(new DateTime(date.Year, date.Month, date.Day, 19, 50, 0));
+                //毎日の1:50,7:50,13:50,19:50
+                eventDates = new List<DateTime>();
+                foreach (var date in dateList)
+                {
+                    eventDates.Add(new DateTime(date.Year, date.Month, date.Day, 1, 50, 0));
+                    eventDates.Add(new DateTime(date.Year, date.Month, date.Day, 7, 50, 0));
+                    eventDates.Add(new DateTime(date.Year, date.Month, date.Day, 13, 50, 0));
+                    eventDates.Add(new DateTime(date.Year, date.Month, date.Day, 19, 50, 0));
+                }
+                SetEvents(eventDates, "LostArkMobile.Resources.EventTypeIsland_arakeru.png", eventName);
             }
-            SetEvents(eventDates, "LostArkMobile.Resources.EventTypeIsland_arakeru.png", "[250]アラケル");
             #endregion
 
             #region [300]スピーダ島
-            //毎日の1:30,7:30,13:30,19:30,22:30
-            eventDates = new List<DateTime>();
-            foreach (var date in dateList)
+            eventName = "[300]スピーダ島";
+            if (GetEventEnable(eventName))
             {
-                eventDates.Add(new DateTime(date.Year, date.Month, date.Day, 1, 30, 0));
-                eventDates.Add(new DateTime(date.Year, date.Month, date.Day, 7, 30, 0));
-                eventDates.Add(new DateTime(date.Year, date.Month, date.Day, 13, 30, 0));
-                eventDates.Add(new DateTime(date.Year, date.Month, date.Day, 19, 30, 0));
-                eventDates.Add(new DateTime(date.Year, date.Month, date.Day, 22, 30, 0));
+                //毎日の1:30,7:30,13:30,19:30,22:30
+                eventDates = new List<DateTime>();
+                foreach (var date in dateList)
+                {
+                    eventDates.Add(new DateTime(date.Year, date.Month, date.Day, 1, 30, 0));
+                    eventDates.Add(new DateTime(date.Year, date.Month, date.Day, 7, 30, 0));
+                    eventDates.Add(new DateTime(date.Year, date.Month, date.Day, 13, 30, 0));
+                    eventDates.Add(new DateTime(date.Year, date.Month, date.Day, 19, 30, 0));
+                    eventDates.Add(new DateTime(date.Year, date.Month, date.Day, 22, 30, 0));
+                }
+                SetEvents(eventDates, "LostArkMobile.Resources.EventTypeIsland_speeda.png", eventName);
             }
-            SetEvents(eventDates, "LostArkMobile.Resources.EventTypeIsland_speeda.png", "[250]スピーダ島");
             #endregion
         }
 
@@ -653,134 +751,151 @@ namespace LostArkMobile.ViewModels
 
             //イベント格納
             var eventDates = new List<DateTime>();
+            var eventName = string.Empty;
 
             #region [250]ポラール島 x
-            ////毎週
-            ////月曜日の20:50
-            ////火曜日の20:50
-            ////木曜日の20:50
-            ////土曜日の13:50
-            ////日曜日の13:50
-            //foreach (var date in dateList)
+            //eventName = "[250]ポラール島";
+            //if (GetEventEnable(eventName))
             //{
-            //    if (date.DayOfWeek == DayOfWeek.Monday)
+            //    //毎週
+            //    //月曜日の20:50
+            //    //火曜日の20:50
+            //    //木曜日の20:50
+            //    //土曜日の13:50
+            //    //日曜日の13:50
+            //    foreach (var date in dateList)
             //    {
-            //        eventDates.Add(new DateTime(date.Year, date.Month, date.Day, 20, 50, 0));
+            //        if (date.DayOfWeek == DayOfWeek.Monday)
+            //        {
+            //            eventDates.Add(new DateTime(date.Year, date.Month, date.Day, 20, 50, 0));
+            //        }
+            //        else if (date.DayOfWeek == DayOfWeek.Tuesday)
+            //        {
+            //            eventDates.Add(new DateTime(date.Year, date.Month, date.Day, 20, 50, 0));
+            //        }
+            //        else if (date.DayOfWeek == DayOfWeek.Thursday)
+            //        {
+            //            eventDates.Add(new DateTime(date.Year, date.Month, date.Day, 20, 50, 0));
+            //        }
+            //        else if (date.DayOfWeek == DayOfWeek.Saturday)
+            //        {
+            //            eventDates.Add(new DateTime(date.Year, date.Month, date.Day, 13, 50, 0));
+            //        }
+            //        else if (date.DayOfWeek == DayOfWeek.Sunday)
+            //        {
+            //            eventDates.Add(new DateTime(date.Year, date.Month, date.Day, 13, 50, 0));
+            //        }
             //    }
-            //    else if (date.DayOfWeek == DayOfWeek.Tuesday)
-            //    {
-            //        eventDates.Add(new DateTime(date.Year, date.Month, date.Day, 20, 50, 0));
-            //    }
-            //    else if (date.DayOfWeek == DayOfWeek.Thursday)
-            //    {
-            //        eventDates.Add(new DateTime(date.Year, date.Month, date.Day, 20, 50, 0));
-            //    }
-            //    else if (date.DayOfWeek == DayOfWeek.Saturday)
-            //    {
-            //        eventDates.Add(new DateTime(date.Year, date.Month, date.Day, 13, 50, 0));
-            //    }
-            //    else if (date.DayOfWeek == DayOfWeek.Sunday)
-            //    {
-            //        eventDates.Add(new DateTime(date.Year, date.Month, date.Day, 13, 50, 0));
-            //    }
+            //    SetEvents(eventDates, "LostArkMobile.Resources.EventTypeAdventureIsland.png", eventName);
             //}
-            //SetEvents(eventDates, "LostArkMobile.Resources.EventTypeAdventureIsland.png", "[250]ポラール島");
             #endregion
 
             #region [320]メーデイア
-            //毎週
-            //月曜日の20:50
-            //水曜日の20:50
-            //金曜日の20:50
-            //土曜日の20:50
-            //日曜日の13:50
-            eventDates = new List<DateTime>();
-            foreach (var date in dateList)
+            eventName = "[320]メーデイア";
+            if (GetEventEnable(eventName))
             {
-                if (date.DayOfWeek == DayOfWeek.Monday)
+                //毎週
+                //月曜日の20:50
+                //水曜日の20:50
+                //金曜日の20:50
+                //土曜日の20:50
+                //日曜日の13:50
+                eventDates = new List<DateTime>();
+                foreach (var date in dateList)
                 {
-                    eventDates.Add(new DateTime(date.Year, date.Month, date.Day, 20, 50, 0));
+                    if (date.DayOfWeek == DayOfWeek.Monday)
+                    {
+                        eventDates.Add(new DateTime(date.Year, date.Month, date.Day, 20, 50, 0));
+                    }
+                    else if (date.DayOfWeek == DayOfWeek.Thursday)
+                    {
+                        eventDates.Add(new DateTime(date.Year, date.Month, date.Day, 20, 50, 0));
+                    }
+                    else if (date.DayOfWeek == DayOfWeek.Friday)
+                    {
+                        eventDates.Add(new DateTime(date.Year, date.Month, date.Day, 20, 50, 0));
+                    }
+                    else if (date.DayOfWeek == DayOfWeek.Saturday)
+                    {
+                        eventDates.Add(new DateTime(date.Year, date.Month, date.Day, 20, 50, 0));
+                    }
+                    else if (date.DayOfWeek == DayOfWeek.Sunday)
+                    {
+                        eventDates.Add(new DateTime(date.Year, date.Month, date.Day, 13, 50, 0));
+                    }
                 }
-                else if (date.DayOfWeek == DayOfWeek.Thursday)
-                {
-                    eventDates.Add(new DateTime(date.Year, date.Month, date.Day, 20, 50, 0));
-                }
-                else if (date.DayOfWeek == DayOfWeek.Friday)
-                {
-                    eventDates.Add(new DateTime(date.Year, date.Month, date.Day, 20, 50, 0));
-                }
-                else if (date.DayOfWeek == DayOfWeek.Saturday)
-                {
-                    eventDates.Add(new DateTime(date.Year, date.Month, date.Day, 20, 50, 0));
-                }
-                else if (date.DayOfWeek == DayOfWeek.Sunday)
-                {
-                    eventDates.Add(new DateTime(date.Year, date.Month, date.Day, 13, 50, 0));
-                }
+                SetEvents(eventDates, "LostArkMobile.Resources.EventTypeAdventureIsland.png", eventName);
             }
-            SetEvents(eventDates, "LostArkMobile.Resources.EventTypeAdventureIsland.png", "[320]メーデイア");
             #endregion
 
             #region [325]フォルペ
-            //毎週
-            //火曜日の20:50
-            //木曜日の20:50
-            //土曜日の13:50
-            //土曜日の20:50
-            //日曜日の20:50
-            eventDates = new List<DateTime>();
-            foreach (var date in dateList)
+            eventName = "[325]フォルペ";
+            if (GetEventEnable(eventName))
             {
-                if (date.DayOfWeek == DayOfWeek.Tuesday)
+                //毎週
+                //火曜日の20:50
+                //木曜日の20:50
+                //土曜日の13:50
+                //土曜日の20:50
+                //日曜日の20:50
+                eventDates = new List<DateTime>();
+                foreach (var date in dateList)
                 {
-                    eventDates.Add(new DateTime(date.Year, date.Month, date.Day, 20, 50, 0));
+                    if (date.DayOfWeek == DayOfWeek.Tuesday)
+                    {
+                        eventDates.Add(new DateTime(date.Year, date.Month, date.Day, 20, 50, 0));
+                    }
+                    else if (date.DayOfWeek == DayOfWeek.Thursday)
+                    {
+                        eventDates.Add(new DateTime(date.Year, date.Month, date.Day, 20, 50, 0));
+                    }
+                    else if (date.DayOfWeek == DayOfWeek.Saturday)
+                    {
+                        eventDates.Add(new DateTime(date.Year, date.Month, date.Day, 13, 50, 0));
+                        eventDates.Add(new DateTime(date.Year, date.Month, date.Day, 20, 50, 0));
+                    }
+                    else if (date.DayOfWeek == DayOfWeek.Sunday)
+                    {
+                        eventDates.Add(new DateTime(date.Year, date.Month, date.Day, 20, 50, 0));
+                    }
                 }
-                else if (date.DayOfWeek == DayOfWeek.Thursday)
-                {
-                    eventDates.Add(new DateTime(date.Year, date.Month, date.Day, 20, 50, 0));
-                }
-                else if (date.DayOfWeek == DayOfWeek.Saturday)
-                {
-                    eventDates.Add(new DateTime(date.Year, date.Month, date.Day, 13, 50, 0));
-                    eventDates.Add(new DateTime(date.Year, date.Month, date.Day, 20, 50, 0));
-                }
-                else if (date.DayOfWeek == DayOfWeek.Sunday)
-                {
-                    eventDates.Add(new DateTime(date.Year, date.Month, date.Day, 20, 50, 0));
-                }
+                SetEvents(eventDates, "LostArkMobile.Resources.EventTypeAdventureIsland.png", eventName);
             }
-            SetEvents(eventDates, "LostArkMobile.Resources.EventTypeAdventureIsland.png", "[325]フォルペ");
             #endregion
 
             #region [430]死の峡谷 x
-            ////毎週
-            ////火曜日の20:50
-            ////木曜日の20:50
-            ////土曜日の13:50
-            ////土曜日の20:50
-            ////日曜日の20:50
-            //eventDates = new List<DateTime>();
-            //foreach (var date in dateList)
+            //eventName = "[430]死の峡谷";
+            //if (GetEventEnable(eventName))
             //{
-            //    if (date.DayOfWeek == DayOfWeek.Tuesday)
+            //    //毎週
+            //    //火曜日の20:50
+            //    //木曜日の20:50
+            //    //土曜日の13:50
+            //    //土曜日の20:50
+            //    //日曜日の20:50
+            //    eventDates = new List<DateTime>();
+            //    foreach (var date in dateList)
             //    {
-            //        eventDates.Add(new DateTime(date.Year, date.Month, date.Day, 20, 50, 0));
+            //        if (date.DayOfWeek == DayOfWeek.Tuesday)
+            //        {
+            //            eventDates.Add(new DateTime(date.Year, date.Month, date.Day, 20, 50, 0));
+            //        }
+            //        else if (date.DayOfWeek == DayOfWeek.Thursday)
+            //        {
+            //            eventDates.Add(new DateTime(date.Year, date.Month, date.Day, 20, 50, 0));
+            //        }
+            //        else if (date.DayOfWeek == DayOfWeek.Saturday)
+            //        {
+            //            eventDates.Add(new DateTime(date.Year, date.Month, date.Day, 13, 50, 0));
+            //            eventDates.Add(new DateTime(date.Year, date.Month, date.Day, 20, 50, 0));
+            //        }
+            //        else if (date.DayOfWeek == DayOfWeek.Sunday)
+            //        {
+            //            eventDates.Add(new DateTime(date.Year, date.Month, date.Day, 20, 50, 0));
+            //        }
             //    }
-            //    else if (date.DayOfWeek == DayOfWeek.Thursday)
-            //    {
-            //        eventDates.Add(new DateTime(date.Year, date.Month, date.Day, 20, 50, 0));
-            //    }
-            //    else if (date.DayOfWeek == DayOfWeek.Saturday)
-            //    {
-            //        eventDates.Add(new DateTime(date.Year, date.Month, date.Day, 13, 50, 0));
-            //        eventDates.Add(new DateTime(date.Year, date.Month, date.Day, 20, 50, 0));
-            //    }
-            //    else if (date.DayOfWeek == DayOfWeek.Sunday)
-            //    {
-            //        eventDates.Add(new DateTime(date.Year, date.Month, date.Day, 20, 50, 0));
-            //    }
+            //    SetEvents(eventDates, "LostArkMobile.Resources.EventTypeAdventureIsland.png", eventName);
             //}
-            //SetEvents(eventDates, "LostArkMobile.Resources.EventTypeAdventureIsland.png", "[430]死の峡谷");
             #endregion
         }
 
@@ -828,6 +943,22 @@ namespace LostArkMobile.ViewModels
                 item.SubTitle = $"{item.Time.ToString("yyyy/MM/dd(ddd)")} {item.Time.Hour.ToString().PadLeft(2,'0')}:{item.Time.Minute.ToString().PadLeft(2, '0')}開始";
                 var timespan = item.Time - NowDate;
                 item.TimeString = item.Time > NowDate ? $"-{((timespan.Days * 24) + timespan.Hours).ToString().PadLeft(2, '0')}:{timespan.Minutes.ToString().PadLeft(2, '0')}" : "";
+            }
+        }
+
+        private bool GetEventEnable(string key)
+        {
+            if (!Application.Current.Properties.ContainsKey(key))
+            {
+                return true;
+            }
+            else if (Application.Current.Properties.ContainsKey(key) && (Application.Current.Properties[key] as bool? ?? false))
+            {
+                return true;
+            }
+            else
+            {
+                return Application.Current.Properties[key] as bool? ?? false;
             }
         }
     }

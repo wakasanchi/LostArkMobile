@@ -12,7 +12,7 @@ namespace LostArkMobile.Models
 		public string TimeString { get; set; }
 
 		public Event()
-        {
+		{
 		}
 	}
 }

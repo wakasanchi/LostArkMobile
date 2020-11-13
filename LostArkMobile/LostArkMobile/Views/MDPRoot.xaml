@@ -14,7 +14,9 @@
                 </Grid.RowDefinitions>
                 <BoxView Color="Navy" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" Grid.Row="0" />
                 <StackLayout Padding="40" Grid.Row="1">
+                    <Button Text="お知らせ" Command="{prism:NavigateTo 'MDPRoot/NavigationRoot/Notice'}" />
                     <Button Text="イベント一覧" Command="{prism:NavigateTo 'MDPRoot/NavigationRoot/EventList'}" />
+                    <Button Text="イベント設定" Command="{prism:NavigateTo 'MDPRoot/NavigationRoot/EventSetting'}" />
                 </StackLayout>
                 <StackLayout Grid.Row="2" >
                     <Label Text="© Smilegate RPG, Inc. All rights reserved. © GameOn Co., Ltd. All Rights Reserved." HorizontalOptions="Center"/>

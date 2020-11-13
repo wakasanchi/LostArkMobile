@@ -42,6 +42,12 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Update="Views\Notice.xaml.cs">
+      <DependentUpon>Notice.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\EventSetting.xaml.cs">
+      <DependentUpon>EventSetting.xaml</DependentUpon>
+    </Compile>
     <Compile Update="Views\EventList.xaml.cs">
       <DependentUpon>EventList.xaml</DependentUpon>
     </Compile>

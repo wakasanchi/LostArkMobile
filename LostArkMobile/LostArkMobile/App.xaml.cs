@@ -33,7 +33,9 @@ namespace LostArkMobile
             containerRegistry.RegisterSingleton<IAppInfo, AppInfoImplementation>();
 
             containerRegistry.RegisterForNavigation<NavigationPage>();
+            containerRegistry.RegisterForNavigation<Notice, NoticeViewModel>();
             containerRegistry.RegisterForNavigation<EventList, EventListViewModel>();
+            containerRegistry.RegisterForNavigation<EventSetting, EventSettingViewModel>();
             containerRegistry.RegisterForNavigation<NavigationRoot, NavigationRootViewModel>();
             containerRegistry.RegisterForNavigation<MDPRoot, MDPRootViewModel>();
         }
